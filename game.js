@@ -6,10 +6,10 @@ canvas.height = window.innerHeight;
 
 let player = {
   x: canvas.width / 2,
-  y: canvas.height - 60, // 사람 이미지 높이에 맞춰 위치 수정
+  y: canvas.height - 60, // 거북이 이미지 높이에 맞춰 위치 수정
   width: 50, // 이미지의 가로 크기
   height: 60, // 이미지의 세로 크기
-  speed: 5, // 속도를 조금 줄였습니다
+  speed: 5, 
   dx: 0,
   dy: 0, // y 축 이동 추가
 };
@@ -20,10 +20,10 @@ let startTime = Date.now(); // 게임 시작 시간을 저장
 
 // 이미지 로드
 const meteorImg = new Image();
-meteorImg.src = 'meteor.png'; // 운석 이미지 파일 경로
+meteorImg.src = 'meteor.png'; // 상어 
 
 const playerImg = new Image();
-playerImg.src = 'player.png'; // 사람 이미지 파일 경로
+playerImg.src = 'player.png'; // 거북이
 
 // 지난 시간을 계산해 반환하는 함수
 function getElapsedTime() {
@@ -69,7 +69,7 @@ function moveObstacles() {
   });
 
   obstacles = obstacles.filter(obstacle => obstacle.y < canvas.height);
-}
+}// 화면 밖으로 나간 장애물들은 배열에서 필터링
 
 function detectCollision() {
   obstacles.forEach(obstacle => {
@@ -80,7 +80,7 @@ function detectCollision() {
 
     const distanceX = playerCenterX - obstacleCenterX;
     const distanceY = playerCenterY - obstacleCenterY;
-    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);//피타코라스의 정의를 이용해 실제 거리를 구함 
 
     const playerRadius = Math.min(player.width, player.height) / 2 * 0.8;
     const obstacleRadius = obstacle.size / 2 * 0.8;
@@ -115,10 +115,12 @@ function update() {
     requestAnimationFrame(update);
   } else {
     alert(`Game Over!당신의 생존시간은 ${getElapsedTime()}초 입니다!!`);
-    document.location.reload();
+    document.location.reload();//새로고침
   }
 }
 
+
+//사용자가 키를 눌렀을때 각각으 방향으로 움직이게 하는 함수 
 function keyDown(e) {
   if (e.key === "ArrowRight" || e.key === "Right") {
     player.dx = player.speed;
@@ -131,6 +133,8 @@ function keyDown(e) {
   }
 }
 
+
+//사용자가 키를 떼었을때 동작을 멈추게 하는 함수
 function keyUp(e) {
   if (e.key === "ArrowRight" || e.key === "Right" || e.key === "ArrowLeft" || e.key === "Left") {
     player.dx = 0;
